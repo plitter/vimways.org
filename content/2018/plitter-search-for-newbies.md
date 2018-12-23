@@ -138,26 +138,25 @@ Still for fun, but this time to be a good vimmer, one could use visual-line mode
 ```vim
 dV/8<CR>
 ```
-<<<< STOPPED HERE >>>>
-Another thing that makes / very easy to use is that you have history which you can access with the up and down button when you have the / on the commandline. So d/ and you can go through your previous searches. Which is nice if you have a search with a lot of regex.
+Another thing that makes `/` very easy to use is that you have history which you can access with the up and down button when you have the `/` on the commandline. So `d/` and you can go through your previous searches. Which is nice if you have a search with a lot of regex.
 
 ## Repeat last search
 
-Something else that is fun with / is that you can repeat the last search with //. Now this is probably completely useless right? I can just press n or N do the exact search again. True, but you can do it in other commands! So imagine that we have the text as above. Result might not be the best name for it so we want to change it to something else. We do /result<cr>, to see that we're hitting the correct things. (if you haven't done it, do :set hlsearch and you'll see exactly the words we hit). That looks fine, so we substitute out the meaningless name. :%s//shouldBeArray/<cr> and suddenly we've renamed it to something that that conveys more meaning.
+Something else that is fun with `/` is that you can repeat the last search with `//`. Now this is probably completely useless right? I can just press n or N do the exact search again. True, but you can do it in other commands! So imagine that we have the text as above. Result might not be the best name for it so we want to change it to something else. We do `/result<cr>`, to see that we're hitting the correct things. (if you haven't done it, do :set hlsearch and you'll see exactly the words we hit). That looks fine, so we substitute out the meaningless name. `:%s//shouldBeArray/<cr>` and suddenly we've renamed it to something that that conveys more meaning.
 
 ## Ranges
 
-Now you might be thinking "That last command is nice and all, but what happens if that is in the middle of a 5000 lines of code? I can't be held accountable for what happens with the other 4992 lines of code!". Well luckily you wont have to, you can use search to choose the range of lines that you want to hit!  :/result1/,/result8/s/<ctrl+r>//shouldBeArray/<cr> and your done. The ctrl+r / adds the last search into your command. But what happens if your code has multiple result1 or result8? Basically the same as when you do a normal search.  So from where your cursor currently is until you hit the first result1 and then until you hit the first result8 after result1. An interesting behaviour I found here is that if your doing the same command again a second time and you have 1 result1 above your current cursor it will still find your result1 and do the substitute and if for some reason result8 is before result1 it will ask you if you want to switch the backward range.
+Now you might be thinking "That last command is nice and all, but what happens if that is in the middle of a 5000 lines of code? I can't be held accountable for what happens with the other 4992 lines of code!". Well luckily you wont have to, you can use search to choose the range of lines that you want to hit! `:/result1/,/result8/s/<ctrl+r>//shouldBeArray/<cr>` and your done. The `ctrl+r /` adds the last search into your command. But what happens if your code has multiple result1 or result8? Basically the same as when you do a normal search.  So from where your cursor currently is until you hit the first result1 and then until you hit the first result8 after result1. An interesting behaviour I found here is that if your doing the same command again a second time and you have 1 result1 above your current cursor it will still find your result1 and do the substitute and if for some reason result8 is before result1 it will ask you if you want to switch the backward range.
 
 ## Obvious(?) other uses of search and some tips
 
-I mentioned briefly (very briefly) that / allows regexes. Regexes should be allowed its own article. But quick example would be to search for result1-8 in 1 go instead of just result. /result\d, /re.ult\d, /res\wlt\d f.ex. Read the manual and also checkout bash regexes, their super useful and remember that you can call shellcommands inside vim.
+I mentioned briefly (very briefly) that `/` allows regexes. Regexes should be allowed its own article. But quick example would be to search for result1-8 in 1 go instead of just result. `/result\d`, `/re.ult\d`, `/res\wlt\d` f.ex. Read the manual and also checkout bash regexes, their super useful and remember that you can call shellcommands inside vim.
 
-You can use :g/<search here>/d to delete all lines that contain pattern or you can use :v/<search here>/d to delete all lines that don't contain pattern. You can also use ranges on those 2 command and the ranges can use search. And don't get me started on what can come after v/.../ or g/.../ because I don't know that much about and would like someone to do an article or send me a message on irc to plitter in #vim explaining it in detail for me :)
+You can use `:g/<search here>/d` to delete all lines that contain pattern or you can use `:v/<search here>/d` to delete all lines that don't contain pattern. You can also use ranges on those 2 command and the ranges can use search. And don't get me started on what can come after `v/.../` or `g/.../` because I don't know that much about and would like someone to do an article or send me a message on irc to plitter in #vim explaining it in detail for me :)
 
-After doing d/<search>, you can repeat it with dot.
+After doing `d/<search>`, you can repeat it with dot.
 
-After doing c/<search>, you can repeat it with dot.
+After doing `c/<search>`, you can repeat it with dot.
 
 I think you can begin to see a pattern where if the command changes text and accepts a motion you can repeat it with `.`. For example, a cheap substitute for:
 
@@ -173,7 +172,7 @@ could actually be to do:
 
 then `n` to get to the next match and `.` to repeat the change. See [`:help gn`][`:help-gn`].
 
-\* and # searches the current word forwards and backwards respectively and you can use that as a substitute in :s//<something>/, :g//<something fancy>, c//, and d//.
+`*` and `#` searches the current word forwards and backwards respectively and you can use that as a substitute in `:s//<something>/`, `:g//<something fancy>`, `c//`, and `d//`.
 
 I like to use `/` to move around or visually selecting. But when I've gotten to where I want to work I'll go to insert mode to insert text, change text with `ct;` (I usually come to where I want to assign a variable and remove the text from: `<text to remove>;`), or when I change a function signature I'll let my [quickfix list][quickfix-list] get populated with the problematic method calls, go to those locations, do `/something` to get to the offending parameter and follow up with any of the following:
 
